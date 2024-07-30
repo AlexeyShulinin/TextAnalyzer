@@ -1,5 +1,5 @@
 {
-  "name": "text-analyzer",
+  "name": "ash-text-analyzer",
   "version": "0.1.0",
   "description": "TextAnalyzer",
   "main": "index.js",
