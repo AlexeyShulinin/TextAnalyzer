@@ -1,5 +1,5 @@
 import * as assert from "assert";
-const TextAnalyzer = require('../index');
+import TextAnalyzer from '../index';
 
 const text = 'The test the most the test no most most next most nope';
 
@@ -55,4 +55,16 @@ export function TextWithDifferentSeparatorsAndNumbersShouldReturnCorrectValues()
     assert.strictEqual(textAnalyzer.predictNextWord('test', 0), '555');
     assert.strictEqual(textAnalyzer.predictNextWord('123'), 'test');
     assert.strictEqual(textAnalyzer.predictNextWord('555', 2), '5555');
+};
+
+export function WordToPredictionNotExistsAtTextShouldReturnNull() {
+    let textAnalyzer = new TextAnalyzer('555|test 555(5555) and 555 123 TEST');
+
+    assert.strictEqual(textAnalyzer.predictNextWord('12412514'), null);
+};
+
+export function WhitespaceWordToPredictionNotExistsAtTextShouldReturnNull() {
+    let textAnalyzer = new TextAnalyzer('555|test 555(5555) and 555 123 TEST');
+
+    assert.strictEqual(textAnalyzer.predictNextWord(''), null);
 };

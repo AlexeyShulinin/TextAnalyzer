@@ -1,4 +1,6 @@
-module.exports = class TextAnalyzer {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class TextAnalyzer {
     constructor(text) {
         this.words = text.split(/[^a-zA-Z0-9]+/).map((x) => x.toLowerCase());
         this.sortedWords = this.mapWordFrequencies();
@@ -6,6 +8,9 @@ module.exports = class TextAnalyzer {
     ;
     predictNextWord(word, i) {
         let currentWordIndex = this.words.indexOf(word.toLowerCase());
+        if (currentWordIndex < 0) {
+            return null;
+        }
         if (i !== undefined) {
             if (i >= this.words.length) {
                 return null;
@@ -29,5 +34,6 @@ module.exports = class TextAnalyzer {
         }
         return [...new Set([...wordFrequencies.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]))];
     }
-};
+}
+exports.default = TextAnalyzer;
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-module.exports = class TextAnalyzer {
+export default class TextAnalyzer {
     words: string[];
     sortedWords: string[];
 
@@ -9,6 +9,10 @@ module.exports = class TextAnalyzer {
     
     predictNextWord(word: string, i?: number) {
         let currentWordIndex = this.words.indexOf(word.toLowerCase());
+
+        if (currentWordIndex < 0) {
+            return null;
+        }
 
         if (i !== undefined) {
             if (i >= this.words.length) {
