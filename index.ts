@@ -1,6 +1,7 @@
 export default class TextAnalyzer {
     words: string[];
     sortedWords: string[];
+    wordFrequencies: Map<string, number>;
 
     constructor(text: string) { 
         this.words = text.split(/[^a-zA-Z0-9]+/).map((x) => x.toLowerCase());
@@ -27,18 +28,18 @@ export default class TextAnalyzer {
     }
 
     private mapWordFrequencies(): string[] {
-        let wordFrequencies = new Map<string, number>();
+        this.wordFrequencies = new Map<string, number>();
 
         for (let word of this.words) {
             let wordKey = word.toLowerCase();
-            let wordFrequency = wordFrequencies.get(wordKey);
+            let wordFrequency = this.wordFrequencies.get(wordKey);
             if (wordFrequency !== undefined) {
-                wordFrequencies.set(wordKey, ++wordFrequency);
+                this.wordFrequencies.set(wordKey, ++wordFrequency);
             } else {
-                wordFrequencies.set(wordKey, 1);
+                this.wordFrequencies.set(wordKey, 1);
             }
         }
 
-        return [...new Set<string>([...wordFrequencies.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]))];
+        return [...new Set<string>([...this.wordFrequencies.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]))];
     }
 }
