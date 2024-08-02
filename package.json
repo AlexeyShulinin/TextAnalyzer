@@ -1,10 +1,14 @@
 {
   "name": "ash-text-analyzer",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "TextAnalyzer",
   "main": "index.js",
   "author": {
     "name": "Alexey Shulinin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexeyShulinin/TextAnalyzer"
   },
   "scripts": {
     "build": "tsc --build",
