@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class TextAnalyzer {
     constructor(text) {
         this.words = text.split(/[^a-zA-Z0-9]+/).map((x) => x.toLowerCase());
-        this.sortedWords = this.mapWordFrequencies();
+        this.wordsFrequencies = this.mapWordFrequencies();
     }
     ;
     predictNextWord(word, i) {
@@ -12,10 +12,18 @@ class TextAnalyzer {
             return null;
         }
         if (i !== undefined) {
-            if (i >= this.words.length) {
+            if (i >= this.wordsFrequencies.length) {
                 return null;
             }
-            let nextWordIndex = this.words.lastIndexOf(this.sortedWords[i]);
+            const matchedWords = this.wordsFrequencies[i];
+            let nextWordIndex = -1;
+            for (let matchedWord of matchedWords) {
+                const index = this.words.lastIndexOf(matchedWord);
+                if (index > currentWordIndex) {
+                    nextWordIndex = index;
+                    break;
+                }
+            }
             return nextWordIndex < currentWordIndex ? null : this.words[nextWordIndex];
         }
         return currentWordIndex + 1 < this.words.length ? this.words[currentWordIndex + 1] : null;
@@ -32,7 +40,14 @@ class TextAnalyzer {
                 wordFrequencies.set(wordKey, 1);
             }
         }
-        return [...new Set([...wordFrequencies.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]))];
+        let grouppedWordFrequencies = [...wordFrequencies.entries()]
+            .reduce((acc, currentValue) => {
+            acc[currentValue[1]] = (acc[currentValue[1]] || []).concat(currentValue[0]);
+            return acc;
+        }, {});
+        return Object.entries(grouppedWordFrequencies)
+            .sort((a, b) => b[0] - a[0])
+            .map((word) => word[1]);
     }
 }
 exports.default = TextAnalyzer;

@@ -18,6 +18,8 @@ export function WordWithIndexShouldReturnCorrectValues() {
     assert.strictEqual(textAnalyzer.predictNextWord('the', 1), 'the');
     assert.strictEqual(textAnalyzer.predictNextWord('next', 0), 'most');
     assert.strictEqual(textAnalyzer.predictNextWord('most', 0), 'most');
+    assert.strictEqual(textAnalyzer.predictNextWord('the', 3), 'no');
+    assert.strictEqual(textAnalyzer.predictNextWord('no', 3), 'next');
 };
 
 export function WordWithOutOfRangeIndexShouldReturnNull() {

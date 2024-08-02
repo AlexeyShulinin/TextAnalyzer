@@ -1,11 +1,10 @@
 export default class TextAnalyzer {
     words: string[];
-    sortedWords: string[];
-    wordFrequencies: Map<string, number>;
+    wordsFrequencies: string[];
 
     constructor(text: string) { 
         this.words = text.split(/[^a-zA-Z0-9]+/).map((x) => x.toLowerCase());
-        this.sortedWords = this.mapWordFrequencies();
+        this.wordsFrequencies = this.mapWordFrequencies();
     };
     
     predictNextWord(word: string, i?: number) {
@@ -16,11 +15,20 @@ export default class TextAnalyzer {
         }
 
         if (i !== undefined) {
-            if (i >= this.words.length) {
+            if (i >= this.wordsFrequencies.length) {
                 return null;
             }
 
-            let nextWordIndex = this.words.lastIndexOf(this.sortedWords[i]);
+            const matchedWords = this.wordsFrequencies[i];
+            let nextWordIndex = -1;
+            for (let matchedWord of matchedWords) {
+                const index = this.words.lastIndexOf(matchedWord);
+                if (index > currentWordIndex) {
+                    nextWordIndex = index;
+                    break;
+                }
+            }
+
             return nextWordIndex < currentWordIndex ? null : this.words[nextWordIndex]
         }
 
@@ -28,18 +36,26 @@ export default class TextAnalyzer {
     }
 
     private mapWordFrequencies(): string[] {
-        this.wordFrequencies = new Map<string, number>();
+        let wordFrequencies = new Map<string, number>();
 
         for (let word of this.words) {
             let wordKey = word.toLowerCase();
-            let wordFrequency = this.wordFrequencies.get(wordKey);
+            let wordFrequency = wordFrequencies.get(wordKey);
             if (wordFrequency !== undefined) {
-                this.wordFrequencies.set(wordKey, ++wordFrequency);
+                wordFrequencies.set(wordKey, ++wordFrequency);
             } else {
-                this.wordFrequencies.set(wordKey, 1);
+                wordFrequencies.set(wordKey, 1);
             }
         }
 
-        return [...new Set<string>([...this.wordFrequencies.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]))];
+        let grouppedWordFrequencies = [...wordFrequencies.entries()]
+            .reduce((acc, currentValue) => {
+                acc[currentValue[1]] = (acc[currentValue[1]] || []).concat(currentValue[0]);
+                return acc;
+            }, {}); 
+
+        return Object.entries(grouppedWordFrequencies)
+            .sort((a: any, b: any) => b[0] - a[0])
+            .map((word) => word[1]) as string[];
     }
 }
