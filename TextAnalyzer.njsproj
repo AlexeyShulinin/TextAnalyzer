@@ -39,6 +39,9 @@
       <TestFramework>ExportRunner</TestFramework>
     </TypeScriptCompile>
     <TypeScriptCompile Include="index.ts" />
+    <TypeScriptCompile Include="textAnalyzer.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tests\" />
