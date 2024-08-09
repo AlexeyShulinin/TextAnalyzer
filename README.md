@@ -18,8 +18,11 @@ Also there is second optional parameter which allows you to transfer which word 
 ```js
 import TextAnalyzer from 'ash-text-analyzer';
 
-const textAnalyzer = new TextAnalyzer('One two two one one next no one one');
-textAnalyzer.predictNextWord('two', 0);	// 'one'
+const textAnalyzer = new TextAnalyzer('The test the most the test no');
+textAnalyzer.predictNextWord("the") // test
+textAnalyzer.predictNextWord("the", 1) // most
+textAnalyzer.predictNextWord("the", 2) // null
+textAnalyzer.predictNextWord("no") // null
 ```
 
 If there is no such word, return null
