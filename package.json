@@ -1,8 +1,9 @@
 {
   "name": "ash-text-analyzer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TextAnalyzer",
   "main": "dist/index.js",
+  "types": "dist/index.js",
   "author": {
     "name": "Alexey Shulinin"
   },
