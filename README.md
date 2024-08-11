@@ -5,7 +5,7 @@ Small module which helps you return the most likely word that follows the one pa
 ## Usage:
 
 ```js
-import TextAnalyzer from 'ash-text-analyzer';
+import { TextAnalyzer } from 'ash-text-analyzer';
 
 const textAnalyzer = new TextAnalyzer('Text to predict next word');
 textAnalyzer.predictNextWord('predict'); // next
@@ -16,7 +16,7 @@ Also there is second optional parameter which allows you to transfer which word 
 ## Example:
 
 ```js
-import TextAnalyzer from 'ash-text-analyzer';
+import { TextAnalyzer } from 'ash-text-analyzer';
 
 const textAnalyzer = new TextAnalyzer('The test the most the test no');
 textAnalyzer.predictNextWord("the") // test

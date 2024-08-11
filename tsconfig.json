@@ -9,7 +9,8 @@
     "types": [
       "node",
       "jest",
-    ]
+    ],
+    "declaration": true,
   },
   "include": ["."],
   "exclude": [
