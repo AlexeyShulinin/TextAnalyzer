@@ -1,6 +1,7 @@
 # TextAnalyzer
 
-Small module which helps you return the most likely word that follows the one passed to the method
+Small module which helps you return the most likely word that follows the one passed to the method.
+Supports different cultures and delimiters
 
 ## Usage:
 

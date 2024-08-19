@@ -119,3 +119,15 @@ describe('The test the most the test no', () => {
         expect(textAnalyzer.predictNextWord('no')).toBe(null);
     })
 });
+
+describe('Not English text', () => {
+    it('Should return correct values', () => {
+        const textAnalyzer = new TextAnalyzer('Привет, МИР! раз два привет повтор раз мир раз пока');
+
+        expect(textAnalyzer.predictNextWord('Привет')).toBe('мир');
+        expect(textAnalyzer.predictNextWord('Привет', 1)).toBe('повтор');
+        expect(textAnalyzer.predictNextWord('Привет', 2)).toBe(null);
+        expect(textAnalyzer.predictNextWord('раз')).toBe('два');
+        expect(textAnalyzer.predictNextWord('пока')).toBe(null);
+    })
+});
